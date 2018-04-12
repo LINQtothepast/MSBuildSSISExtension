@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Project  xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+          DefaultTargets="SSISBuild">
+  
+  <UsingTask TaskName="DeploymentFileCompilerTask"
+			 AssemblyFile="Microsoft.SqlServer.IntegrationServices.Build.dll" 
+  />
+  
+  <ItemGroup>
+    <SSISProjPath Include="..\CommandLineTest\$(SSISProj)\$(SSISProj).dtproj" />
+  </ItemGroup>
+  
+  <Target Name="SSISBuild">
+    <Message Text="**************Building SSIS project **************" />
+    <DeploymentFileCompilerTask
+       InputProject="@(SSISProjPath)"
+       Configuration="Development"
+       ProtectionLevel="EncryptSensitiveWithPassword"
+	   ProjectPassword="$(password)"
+   />
+  </Target>
+
+</Project>
